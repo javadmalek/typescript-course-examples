@@ -15,7 +15,7 @@ function divide(a: number, b: number): number {
 }
 
 // anonymous funtion
-const multiply = function(a: number, b: number): number {
+const multiply = function (a: number, b: number): number {
   return a * b;
 };
 
@@ -30,7 +30,7 @@ const throwError = (message: string): never => {
 // Destructuring
 const todayWeather = {
   date: new Date(),
-  weather: 'sunny'
+  weather: 'sunny',
 };
 
 const logWeather = ({ date, weather }: { date: Date; weather: string }) => {
