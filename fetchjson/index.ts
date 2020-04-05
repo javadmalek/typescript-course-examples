@@ -8,16 +8,15 @@ interface Todo {
   completed: boolean;
 }
 
-axios.get(url)
-      .then(({ data }) => {
-        console.log(data);
+axios.get(url).then(({ data }) => {
+  console.log(data);
 
-        const { id, title, completed } = data as Todo;
-        
-        logTodo(id, title, completed);
-        logTodoObj(data)
-        logTodoObj({id, title, completed})
-      });
+  const { id, title, completed } = data as Todo;
+
+  logTodo(id, title, completed);
+  logTodoObj(data);
+  logTodoObj({ id, title, completed });
+});
 
 const logTodo = (id: number, title: string, completed: boolean) => {
   console.log(`
@@ -28,7 +27,7 @@ const logTodo = (id: number, title: string, completed: boolean) => {
 };
 
 const logTodoObj = (todo: Todo) => {
-  const { id, title, completed } = todo; 
+  const { id, title, completed } = todo;
   console.log(`
         logTodoObj
         The Todo with ID: ${id}
@@ -36,3 +35,10 @@ const logTodoObj = (todo: Todo) => {
         Is it finished? ${completed}
         `);
 };
+const logTodoObjDestructure = ({ id, title, completed }: Todo) =>
+  console.log(`
+        logTodoObj
+        The Todo with ID: ${id}
+        Has a title of: ${title}
+        Is it finished? ${completed}
+        `);
