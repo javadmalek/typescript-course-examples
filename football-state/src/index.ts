@@ -1,15 +1,18 @@
 import { MatchResult } from './MatchResult';
 import { MatchReader, MatchDataTuple } from './inheritance/MatchReader';
+import { Summery } from './interface/Summery';
 
+const clubName = 'Perspolis';
+const htmlFilename = 'build/html_report.html';
 const csvFileName = 'football_matchs.csv';
 const logPerspolisReport = (perspolisData: MatchDataTuple[]): void => {
   let perspolisWinsH = 0;
   let perspolisWinsA = 0;
 
   for (let match of perspolisData) {
-    if (match[1] === 'Perspolis' && match[5] === MatchResult.HomeWins) {
+    if (match[1] === clubName && match[5] === MatchResult.HomeWins) {
       perspolisWinsH++;
-    } else if (match[2] === 'Perspolis' && match[5] === MatchResult.AwayWins) {
+    } else if (match[2] === clubName && match[5] === MatchResult.AwayWins) {
       perspolisWinsA++;
     }
   }
@@ -29,13 +32,17 @@ logPerspolisReport(footballMatchsReader.data);
 
 // Interface method
 import { MatchReader as MatchReaderInterface } from './interface/MatchReader';
-import { CsvFileReader as CsvFileReaderInterface } from './interface/CsvFileReader';
 
-// Creating an object that satisfies the 'DataReader'interface
-const csvFileReaderInterface = new CsvFileReaderInterface(csvFileName);
-
-// Creating an instance of MatchReader and passing something in satisfying the 'DataReader' interface
-const matchReader = new MatchReaderInterface(csvFileReaderInterface);
+const matchReader = MatchReaderInterface.fromCsv(csvFileName);
 matchReader.load();
 
 logPerspolisReport(matchReader.matchs);
+
+console.log('*********************');
+console.log('Composition with interface');
+
+const summeryConsole = Summery.winAnalysisWithConsolwReport(clubName);
+summeryConsole.buildAndReport(matchReader.matchs);
+
+const summeryHtml = Summery.winAnalysisWithHtmlwReport(clubName, htmlFilename);
+summeryHtml.buildAndReport(matchReader.matchs);
