@@ -1,4 +1,5 @@
 import { User } from './models/User';
+import axios from 'axios';
 
 const user2 = new User({ age: 14 });
 user2.set({ name: 'Javad Agha' });
@@ -31,3 +32,17 @@ console.log(user);
 user.trigger('click');
 user.trigger('mouseover');
 user.trigger('skdjfhgksjdf');
+
+axios.post('http://localhost:3000/users', { name: 'Gesa', age: 34 });
+axios.get('http://localhost:3000/users/4');
+
+axios.post('http://localhost:3000/posts', {
+  title: 'a title is here',
+  body: 'a body is here',
+});
+
+const userFertch = new User({ id: 1 });
+userFertch.fetch();
+
+userFertch.set({ name: 'Akkak', age: 25 });
+userFertch.save();
