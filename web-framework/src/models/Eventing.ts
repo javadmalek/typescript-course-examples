@@ -1,4 +1,4 @@
-type CallbackAlias = () => void; // () =>  {};  !!!! TS  would consider the object as return value !!!!!
+type CallbackAlias = () => void;
 
 export class Eventing {
   events: { [key: string]: CallbackAlias[] } = {}; // an array of callbacks for a specific event
