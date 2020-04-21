@@ -2,7 +2,7 @@ import { Modal } from './Modal';
 import { Eventing } from './Eventing';
 import { ApiSync } from './ApiSync';
 import { Attributes } from './Attributes';
-import { AxiosResponse } from 'axios';
+import { Collection } from './Collection';
 
 export interface UserProps {
   id?: number;
@@ -19,5 +19,9 @@ export class User extends Modal<UserProps> {
       new ApiSync<UserProps>(rootUrl),
       new Eventing()
     );
+  }
+
+  static buildUserCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps>(rootUrl, User.buildUser);
   }
 }

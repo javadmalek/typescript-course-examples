@@ -27,17 +27,13 @@ export class Modal<T extends HasId> {
     private events: Events
   ) {}
 
-  get on() {
-    return this.events.on;
-  }
-
-  get trigger() {
-    return this.events.trigger;
-  }
-
-  get get() {
-    return this.attributes.get;
-  }
+  //  V 179
+  // the following shorthen syntax is valid iff the passing arguments
+  // are not assigned in constructor body. beacuse of hositation, 
+  // which defines  functions before initialization
+  on = this.events.on;
+  trigger = this.events.trigger;
+  get = this.attributes.get;
 
   set(updateProps: T): void {
     this.attributes.set(updateProps);

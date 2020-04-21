@@ -1,7 +1,14 @@
 import { User } from './models/User';
-import axios from 'axios';
 
-const user = User.buildUser({ id: 1, name: 'Almamed' });
-user.on('save', () => console.log('User is fetched(changed) and update HTML'));
-user.save();
-console.log(user);
+const userCollection = User.buildUserCollection();
+
+userCollection.on('change', () => {
+  console.log('on change is triggered');
+  console.log(userCollection);
+});
+
+userCollection.on('error', () => {
+  console.log('error is triggered');
+});
+
+userCollection.fetch();
