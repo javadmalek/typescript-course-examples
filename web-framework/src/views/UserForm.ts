@@ -1,47 +1,41 @@
-export class UserForm {
-  constructor(public parent: Element) {}
+import { User, UserProps } from '../models/User';
+import { View } from './View';
 
+export class UserForm extends View<UserProps, User> {
   eventsMap(): { [key: string]: () => void } {
     return {
-      'click:button': this.onButtonClick,
-      'mouseenter: h1': this.onMouseEnter,
+      'click:.set-age': this.onSetAgeClick,
+      'click:.set-name': this.onSetNameClick,
+      'click:.save': this.onSaveUserClick,
     };
   }
 
-  onButtonClick(): void {
-    console.log('Hi There....!');
-  }
-  
-  onMouseEnter(): void {
-    console.log('onMouseEnter....!');
-  }
+  onSaveUserClick = (): void => {
+    this.modal.save();
+  };
+
+  onSetNameClick = (): void => {
+    const input = this.parent.querySelector('input');
+
+    if (input) {
+      const name = input.value;
+
+      this.modal.set({ name });
+    }
+  };
+
+  onSetAgeClick = (): void => {
+    this.modal.setRandomAge();
+  };
 
   template(): string {
     return `
     <div>
-      <h1>User Form</h1>
-      <input />
-      <button>Click Me</button>
+      <input placeholder="${this.modal.get('name')}" />
+      <button class="set-name">Set Name</button>
+      <button class="set-age">Set a Random Age</button>
+      <button class="save">Save User</button>
     </div>
     `;
-  }
-
-  bindEvents(fragment: DocumentFragment): void {
-    const eventsMap = this.eventsMap();
-
-    for (let eventKey in eventsMap) {
-      const [eventName, selector] = eventKey.split(':');
-      fragment
-        .querySelectorAll(selector)
-        .forEach((el) => el.addEventListener(eventName, eventsMap[eventKey]));
-    }
-  }
-
-  render(): void {
-    const templateElement = document.createElement('template');
-    templateElement.innerHTML = this.template();
-    this.bindEvents(templateElement.content);
-
-    this.parent.append(templateElement.content);
   }
 }
