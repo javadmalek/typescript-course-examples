@@ -1,0 +1,29 @@
+{
+  "posts": [],
+  "users": [
+    {
+      "id": 1,
+      "name": "Almamed"
+    },
+    {
+      "name": "Javad",
+      "age": 34,
+      "id": 2
+    },
+    {
+      "name": "Gesa",
+      "age": 34,
+      "id": 63
+    },
+    {
+      "name": "Akkak Abbasi",
+      "age": 35,
+      "id": 64
+    },
+    {
+      "name": "Akka Gorzin",
+      "age": 65,
+      "id": 65
+    }
+  ]
+}
