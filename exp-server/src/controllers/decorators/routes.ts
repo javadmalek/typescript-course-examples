@@ -1,4 +1,7 @@
 import 'reflect-metadata';
+import { RequestHandler } from 'express'
+import { Methods } from './Methods';
+import { MetadataKeys } from './MetadataKeys';
 
 // export function get(path: string) {
 //   // decorator facotry
@@ -8,19 +11,24 @@ import 'reflect-metadata';
 //   };
 // }
 
+// Using property descriptor is a way to limit how do we use a decorator
+interface RequestHandlerDescriptor extends PropertyDescriptor {
+  value?: RequestHandler;
+}
+
 function routeBinder(method: string) {
   return (path: string) => {
     // decorator facotry
-    return (target: any, key: string) => {
+    return (target: any, key: string, desc: RequestHandlerDescriptor) => {
       // actual decorator
-      Reflect.defineMetadata('path', path, target, key);
-      Reflect.defineMetadata('method', method, target, key);
+      Reflect.defineMetadata(MetadataKeys.PATH, path, target, key);
+      Reflect.defineMetadata(MetadataKeys.METHOD, method, target, key);
     };
   };
 }
 
-export const get = routeBinder('get');
-export const post = routeBinder('post');
-export const patch = routeBinder('patch');
-export const del = routeBinder('delete');
-export const put = routeBinder('put');
+export const get = routeBinder(Methods.GET);
+export const post = routeBinder(Methods.POST);
+export const patch = routeBinder(Methods.PATCH);
+export const del = routeBinder(Methods.DELETE);
+export const put = routeBinder(Methods.PUT);
